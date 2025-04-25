@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 import "@react95/core/GlobalStyle";
@@ -54,6 +55,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ContextProviders>{children}</ContextProviders>
+        <Analytics />
       </body>
     </html>
   );

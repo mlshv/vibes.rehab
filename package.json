@@ -16,6 +16,7 @@
     "@ai-sdk/react": "^1.2.9",
     "@react95/core": "^9.0.0",
     "@react95/icons": "^2.1.1",
+    "@vercel/analytics": "^1.5.0",
     "ai": "^4.3.9",
     "clippyts": "^1.0.4",
     "clsx": "^2.1.1",
