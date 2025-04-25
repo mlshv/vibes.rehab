@@ -160,6 +160,7 @@ export const Hero = () => {
       <div className="flex flex-col items-center justify-center max-w-2xl w-full">
         {/* @ts-ignore */}
         <Modal
+          className="!touch-auto"
           style={{ position: "static", width: "100%", touchAction: "auto" }}
           icon={<Tree variant="16x16_4" />}
           title="vibes.rehab"
