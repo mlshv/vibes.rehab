@@ -51,7 +51,7 @@ export const Hero = () => {
     api: "/api/generate",
     onFinish: () => {
       if (clippy) {
-        if (window.innerWidth > 640) clippy.play("GestureRight");
+        if (window.innerWidth > 640) clippy.play("GestureLeft");
         else clippy.play("GestureDown");
       }
     },
