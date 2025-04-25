@@ -42,7 +42,7 @@ const components: Partial<Components> = {
   },
   li: ({ node, children, ...props }) => {
     return (
-      <li className="ml-2" {...props}>
+      <li className="ml-4" {...props}>
         {children}
       </li>
     );

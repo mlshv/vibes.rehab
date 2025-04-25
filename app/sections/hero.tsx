@@ -121,7 +121,7 @@ export const Hero = () => {
               marginLeft: "auto",
             }}
           >
-            Ok
+            Generate
           </Button>
         </div>
       </form>
@@ -219,8 +219,8 @@ export const Hero = () => {
             {!isLoading && completion && (
               <div className="flex flex-col justify-center items-center gap-2 mt-8">
                 <p>Your journey might be the inspiration someone else needs.</p>
-                <Button className="flex items-center gap-2" onClick={onShare}>
-                  Share on <XIcon className="size-4" />
+                <Button className="flex items-center gap-1" onClick={onShare}>
+                  Share on <XIcon className="size-3" />
                 </Button>
               </div>
             )}
@@ -235,7 +235,7 @@ export const Hero = () => {
             type="info"
             message={
               (
-                <div>
+                <div className="px-2 max-w-[260px]">
                   Created by{" "}
                   <a href="https://x.com/topcatnocap">@topcatnocap</a>, a
                   software engineer who still enjoys writing code by hand.
