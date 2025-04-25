@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useCompletion } from "@ai-sdk/react";
+import { track } from "@vercel/analytics";
 
 import { Alert } from "@react95/core/Alert";
 import { Button } from "@react95/core/Button";
@@ -68,6 +69,10 @@ export const Hero = () => {
   }, [clippy]);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    track("generate_clicked", {
+      prompt: userPrompt,
+    });
+
     e.preventDefault();
     if (!userPrompt.trim()) return;
     clippy?.play("Print");
@@ -75,6 +80,7 @@ export const Hero = () => {
   };
 
   const onShare = () => {
+    track("share_clicked");
     const tweetText =
       "take the first step in your coding rehabilitation journey at vibes dot rehab";
     window.open(
@@ -133,6 +139,10 @@ export const Hero = () => {
           <Button
             key={text}
             onClick={() => {
+              track("suggested_prompt_clicked", {
+                prompt: text,
+              });
+
               window.open(url, "_blank");
             }}
           >
@@ -237,8 +247,15 @@ export const Hero = () => {
               (
                 <div className="px-2 max-w-[260px]">
                   Created by{" "}
-                  <a href="https://x.com/topcatnocap">@topcatnocap</a>, a
-                  software engineer who still enjoys writing code by hand.
+                  <a
+                    href="https://x.com/topcatnocap"
+                    onClick={() => {
+                      track("about_clicked");
+                    }}
+                  >
+                    @topcatnocap
+                  </a>
+                  , a software engineer who still enjoys writing code by hand.
                 </div>
               ) as unknown as string
             }
