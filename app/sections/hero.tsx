@@ -59,12 +59,18 @@ export const Hero = () => {
   });
 
   const { clippy, loadClippy } = useClippy();
+  const [isClippyLoaded, setIsClippyLoaded] = useState(false);
 
   const [showInfoModal, toggleShowInfoModal] = useState(false);
 
   useEffect(() => {
     if (!clippy) {
-      loadClippy();
+      loadClippy().then((clippy) => {
+        setTimeout(() => {
+          setIsClippyLoaded(true);
+          clippy?.play("Greeting");
+        }, 200);
+      });
     }
   }, [clippy]);
 
@@ -199,11 +205,12 @@ export const Hero = () => {
               paddingTop: "24px",
             }}
           >
-            <div className="flex flex-col sm:flex-row relative w-full min-h-[93px] mb-2">
+            <div className="flex flex-col sm:flex-row relative w-full min-h-[93px] sm:mb-2">
               <div
                 className={cn(
                   "clippy-node w-[124px] h-[93px] absolute left-[50%] -translate-x-1/2 transition-all duration-300 ease-out",
-                  completion || isLoading ? "left-0 translate-x-0" : ""
+                  completion || isLoading ? "left-0 translate-x-0" : "",
+                  isClippyLoaded ? "opacity-100" : "opacity-0"
                 )}
               />
 

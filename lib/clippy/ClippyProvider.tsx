@@ -21,28 +21,36 @@ export const ClippyProvider: FC<{
   }
 
   const loadClippy = useCallback(() => {
-    function getAgent() {
+    function getAgent(
+      resolve?: (value: Agent) => void,
+      reject?: (reason?: unknown) => void
+    ) {
       clippyts.load({
         name: agentName,
         selector,
         successCb: (agent) => {
           agent.show(true);
-          agent.play("Greeting");
           setClippy(agent);
           clippyAgent = agent;
+          resolve?.(agent);
         },
         failCb: (error) => {
           console.error(error);
           setClippy(undefined);
+          reject?.(error);
         },
       });
     }
 
     if (clippy) {
       byebye(clippy, () => getAgent());
-    } else {
-      getAgent();
+
+      return Promise.resolve(undefined);
     }
+
+    return new Promise<Agent>((resolve, reject) => {
+      getAgent(resolve, reject);
+    });
   }, [agentName, selector]);
 
   useEffect(() => {

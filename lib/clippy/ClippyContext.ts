@@ -3,8 +3,8 @@ import { createContext } from "react";
 
 export const ClippyContext = createContext<{
   clippy: Agent | undefined;
-  loadClippy: () => void;
+  loadClippy: () => Promise<Agent | undefined>;
 }>({
   clippy: undefined,
-  loadClippy: () => {},
+  loadClippy: () => Promise.resolve(undefined),
 });
