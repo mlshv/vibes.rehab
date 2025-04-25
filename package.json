@@ -1,17 +1,19 @@
 {
-  "name": "nextjs-template",
+  "name": "vibes-rehab",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.12",
     "@ai-sdk/react": "^1.2.9",
-    "@react95/clippy": "^2.0.2",
     "@react95/core": "^9.0.0",
     "@react95/icons": "^2.1.1",
     "ai": "^4.3.9",
@@ -29,7 +31,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@cloudflare/workers-types": "^4.20250419.0",
-    "@opennextjs/cloudflare": "~1.0.0-beta.0 || ^1.0.0",
+    "@opennextjs/cloudflare": "1.0.0-beta.3",
     "@tailwindcss/postcss": "^4.1.4",
     "@types/node": "^20",
     "@types/react": "^19.1.2",

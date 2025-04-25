@@ -16,7 +16,7 @@ const components: Partial<Components> = {
       return (
         <pre
           {...(props as React.HTMLAttributes<HTMLPreElement>)}
-          className="text-sm w-full overflow-x-auto p-4 border border-zinc-700 bg-zinc-800  00 rounded-xl"
+          className="text-sm w-full overflow-x-auto p-4"
         >
           <code className="whitespace-pre-wrap break-words">{children}</code>
         </pre>
@@ -25,7 +25,7 @@ const components: Partial<Components> = {
 
     return (
       <code
-        className="text-sm bg-zinc-700 py-0.5 px-1 rounded-md"
+        className=""
         {...props}
       >
         {children}
@@ -35,7 +35,7 @@ const components: Partial<Components> = {
   pre: ({ children }) => <>{children}</>,
   ol: ({ node, children, ...props }) => {
     return (
-      <ol className="flex flex-col gap-3 list-decimal list-outside ml-8" {...props}>
+      <ol className="flex flex-col gap-3 list-decimal list-outside" {...props}>
         {children}
       </ol>
     );
@@ -49,7 +49,7 @@ const components: Partial<Components> = {
   },
   ul: ({ node, children, ...props }) => {
     return (
-      <ul className="flex flex-col gap-3 list-decimal list-outside ml-8" {...props}>
+      <ul className="flex flex-col gap-3 list-decimal list-outside" {...props}>
         {children}
       </ul>
     );

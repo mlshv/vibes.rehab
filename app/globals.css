@@ -6,7 +6,10 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--background) url("/bliss.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--foreground);
   font-family: var(--font-sans);
 }

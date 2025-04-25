@@ -5,12 +5,18 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+.wrangler
 
 # testing
 /coverage
 
 # next.js
 /.next/
+/.next-turbopack/
+/.next-normal/
+.open-next/
+.open-next-normal/
+.open-next-turbopack/
 /out/
 
 # production

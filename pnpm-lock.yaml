@@ -14,9 +14,6 @@ importers:
       '@ai-sdk/react':
         specifier: ^1.2.9
         version: 1.2.9(react@19.1.0)(zod@3.24.3)
-      '@react95/clippy':
-        specifier: ^2.0.2
-        version: 2.0.2(react@19.1.0)
       '@react95/core':
         specifier: ^9.0.0
         version: 9.2.1(@vanilla-extract/css@1.17.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1211,11 +1208,6 @@ packages:
   '@opentelemetry/api@1.9.0':
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
     engines: {node: '>=8.0.0'}
-
-  '@react95/clippy@2.0.2':
-    resolution: {integrity: sha512-2JB+hMg2nx5E/rKYzxEWPZggb7pNe1wGljmnj+aSTaJf8ro9JuParb62jfx3VHSeGyygy3M3BMq6txMq9wRmtg==}
-    peerDependencies:
-      react: '>= 16.8.0'
 
   '@react95/core@9.2.1':
     resolution: {integrity: sha512-n0Vvp4xLrRDW9v6ErTmyFdnX0a8JOgROLosPsKUrQ2FOasuuIDdoUCapn3857Gmq5coMGZ1czhHJQmmuiP508g==}
@@ -4600,11 +4592,6 @@ snapshots:
       - supports-color
 
   '@opentelemetry/api@1.9.0': {}
-
-  '@react95/clippy@2.0.2(react@19.1.0)':
-    dependencies:
-      clippyts: 1.0.4
-      react: 19.1.0
 
   '@react95/core@9.2.1(@vanilla-extract/css@1.17.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:

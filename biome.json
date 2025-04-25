@@ -25,6 +25,12 @@
       },
       "a11y": {
         "noAutofocus": "off"
+      },
+      "style": {
+        "useImportType": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
       }
     }
   },

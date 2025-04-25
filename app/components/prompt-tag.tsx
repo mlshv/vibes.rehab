@@ -1,5 +1,5 @@
 import type { ReactNode, MouseEvent } from "react";
-import { Button } from "@react95/core";
+import { Button } from "@react95/core/Button";
 
 type PromptTagProps = {
   children: ReactNode;
