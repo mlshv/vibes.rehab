@@ -48,7 +48,7 @@ const suggestedPrompts = [
 
 export const Hero = () => {
   const [userPrompt, setUserPrompt] = useState("");
-  const { complete, completion, isLoading } = useCompletion({
+  const { complete, completion, data, isLoading } = useCompletion({
     api: "/api/generate",
     onFinish: () => {
       if (clippy) {
@@ -57,6 +57,14 @@ export const Hero = () => {
       }
     },
   });
+
+  const shareTweetText = data?.reduce((acc, item) => {
+    if ((item as { type: string })?.type === "tweet") {
+      return JSON.parse((item as { text: string }).text).trim();
+    }
+
+    return acc as string;
+  }, "take the first step in your coding rehabilitation journey at vibes.rehab");
 
   const { clippy, loadClippy } = useClippy();
   const [isClippyLoaded, setIsClippyLoaded] = useState(false);
@@ -87,10 +95,10 @@ export const Hero = () => {
 
   const onShare = () => {
     track("share_clicked");
-    const tweetText =
-      "take the first step in your coding rehabilitation journey at vibes dot rehab";
     window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`,
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        shareTweetText as string
+      )}`,
       "_blank"
     );
   };

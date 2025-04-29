@@ -1,5 +1,5 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { streamText } from "ai";
+import { createDataStreamResponse, generateText, streamText } from "ai";
 
 const system = `
 You are a calm, supportive programming therapist. Many developers get caught in "vibe coding," relying on AI without deep understanding. You help people recover from this dependency.
@@ -39,19 +39,56 @@ export const POST = async (req: Request) => {
 
   const google = createGoogleGenerativeAI();
 
-  const result = streamText({
-    model: google("gemini-2.0-flash-001", {}),
-    system,
-    messages: [
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
-    onError: (error) => {
-      console.error(error);
+  return createDataStreamResponse({
+    execute: async (dataStream) => {
+      const result = streamText({
+        model: google("gemini-2.0-flash-001", {}),
+        system,
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+        onError: (error) => {
+          console.error(error);
+        },
+      });
+
+      result.mergeIntoDataStream(dataStream);
+
+      const resultText = await result.text;
+      const shareRehabPlanTweet = await generateText({
+        model: google("gemini-2.0-flash-001", {}),
+        system: `
+You are writing a tweet as someone who loves using AI coding tools but realizes they've become addicted and need help.
+IMPORTANT: Generate ONLY the final tweet text - no headers, no formatting instructions.
+The tweet must be under 280 characters and COMPLETE (not truncated).
+
+Your tweet should follow this specific format:
+1. Start by admitting you love AI coding but have a problem: "I love AI coding, but..." or similar
+2. Identify yourself as a vibe coding addict needing rehab
+3. Mention that Dr. Clippy or a Programming Doctor prescribed you a rehab plan
+4. Include 1-2 specific points from your rehab plan
+5. Ask an engaging question like "Anyone else struggle with vibe coding?" or "Is AI dependency affecting your skills too?"
+6. Mention vibes.rehab at the end of the tweet
+
+Keep it authentic, conversational, and include 1-2 emojis. Make it sound like you're genuinely reaching out to fellow developers about a shared problem.
+
+Below is a rehab plan to reference for your tweet:`,
+        messages: [
+          {
+            role: "user",
+            content: resultText,
+          },
+        ],
+        maxTokens: 100,
+      });
+
+      dataStream.writeData({
+        type: "tweet",
+        text: JSON.stringify(shareRehabPlanTweet.text),
+      });
     },
   });
-
-  return result.toDataStreamResponse();
 };
