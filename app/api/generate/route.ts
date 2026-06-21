@@ -42,7 +42,7 @@ export const POST = async (req: Request) => {
   return createDataStreamResponse({
     execute: async (dataStream) => {
       const result = streamText({
-        model: google("gemini-2.0-flash-001", {}),
+        model: google("gemini-2.5-flash", {}),
         system,
         messages: [
           {
@@ -59,7 +59,7 @@ export const POST = async (req: Request) => {
 
       const resultText = await result.text;
       const shareRehabPlanTweet = await generateText({
-        model: google("gemini-2.0-flash-001", {}),
+        model: google("gemini-2.5-flash", {}),
         system: `
 You are writing a tweet as someone who loves using AI coding tools but realizes they've become addicted and need help.
 IMPORTANT: Generate ONLY the final tweet text - no headers, no formatting instructions.
