@@ -256,7 +256,12 @@ export const Hero = () => {
                       </>
                     )}
                     {isLoading && (
-                      <p className={cn("font-medium", completion && "mt-3")}>
+                      <p
+                        className={cn(
+                          "text-lg font-medium",
+                          completion && "mt-3"
+                        )}
+                      >
                         Computer is thinking
                         <span className="inline-block w-[3ch]">
                           {thinkingDots}

@@ -1,14 +1,5 @@
-import {
-  createGoogleGenerativeAI,
-  type GoogleGenerativeAIProviderOptions,
-} from "@ai-sdk/google";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createDataStreamResponse, generateText, streamText } from "ai";
-
-const googleProviderOptions = {
-  thinkingConfig: {
-    thinkingBudget: 0,
-  },
-} satisfies GoogleGenerativeAIProviderOptions;
 
 const system = `
 You are a calm, supportive programming therapist. Many developers get caught in "vibe coding," relying on AI without deep understanding. You help people recover from this dependency.
@@ -52,9 +43,6 @@ export const POST = async (req: Request) => {
     execute: async (dataStream) => {
       const result = streamText({
         model: google("gemini-2.5-flash", {}),
-        providerOptions: {
-          google: googleProviderOptions,
-        },
         system,
         messages: [
           {
@@ -72,9 +60,6 @@ export const POST = async (req: Request) => {
       const resultText = await result.text;
       const shareRehabPlanTweet = await generateText({
         model: google("gemini-2.5-flash", {}),
-        providerOptions: {
-          google: googleProviderOptions,
-        },
         system: `
 You are writing a tweet as someone who loves using AI coding tools but realizes they've become addicted and need help.
 IMPORTANT: Generate ONLY the final tweet text - no headers, no formatting instructions.
