@@ -82,7 +82,7 @@ Below is a rehab plan to reference for your tweet:`,
             content: resultText,
           },
         ],
-        maxTokens: 100,
+        maxTokens: 200,
       });
 
       dataStream.writeData({

@@ -110,7 +110,7 @@ export const Hero = () => {
   const onShare = () => {
     track("share_clicked");
     window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      `https://x.com/intent/post?text=${encodeURIComponent(
         shareTweetText as string
       )}`,
       "_blank"
