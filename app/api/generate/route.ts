@@ -1,5 +1,14 @@
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import {
+  createGoogleGenerativeAI,
+  type GoogleGenerativeAIProviderOptions,
+} from "@ai-sdk/google";
 import { createDataStreamResponse, generateText, streamText } from "ai";
+
+const tweetProviderOptions = {
+  thinkingConfig: {
+    thinkingBudget: 0,
+  },
+} satisfies GoogleGenerativeAIProviderOptions;
 
 const system = `
 You are a calm, supportive programming therapist. Many developers get caught in "vibe coding," relying on AI without deep understanding. You help people recover from this dependency.
@@ -60,20 +69,12 @@ export const POST = async (req: Request) => {
       const resultText = await result.text;
       const shareRehabPlanTweet = await generateText({
         model: google("gemini-2.5-flash", {}),
+        providerOptions: {
+          google: tweetProviderOptions,
+        },
         system: `
-You are writing a tweet as someone who loves using AI coding tools but realizes they've become addicted and need help.
-IMPORTANT: Generate ONLY the final tweet text - no headers, no formatting instructions.
-The tweet must be under 280 characters and COMPLETE (not truncated).
-
-Your tweet should follow this specific format:
-1. Start by admitting you love AI coding but have a problem: "I love AI coding, but..." or similar
-2. Identify yourself as a vibe coding addict needing rehab
-3. Mention that Dr. Clippy or a Programming Doctor prescribed you a rehab plan
-4. Include 1-2 specific points from your rehab plan
-5. Ask an engaging question like "Anyone else struggle with vibe coding?" or "Is AI dependency affecting your skills too?"
-6. Mention vibes.rehab at the end of the tweet
-
-Keep it authentic, conversational, and include 1-2 emojis. Make it sound like you're genuinely reaching out to fellow developers about a shared problem.
+Write one complete X post under 240 characters. Output only the post text.
+Include: loving AI coding but having a problem, vibe coding rehab, Dr. Clippy or Programming Doctor, one concrete step from the rehab plan, one short question, and the literal text vibes.rehab. Do not use hashtags.
 
 Below is a rehab plan to reference for your tweet:`,
         messages: [
