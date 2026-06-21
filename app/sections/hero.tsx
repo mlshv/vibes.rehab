@@ -48,6 +48,7 @@ const suggestedPrompts = [
 
 export const Hero = () => {
   const [userPrompt, setUserPrompt] = useState("");
+  const [thinkingDots, setThinkingDots] = useState(".");
   const { complete, completion, data, isLoading } = useCompletion({
     api: "/api/generate",
     onFinish: () => {
@@ -70,6 +71,19 @@ export const Hero = () => {
   const [isClippyLoaded, setIsClippyLoaded] = useState(false);
 
   const [showInfoModal, toggleShowInfoModal] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setThinkingDots(".");
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setThinkingDots((dots) => (dots.length === 3 ? "." : `${dots}.`));
+    }, 450);
+
+    return () => window.clearInterval(interval);
+  }, [isLoading]);
 
   useEffect(() => {
     if (!clippy) {
@@ -223,7 +237,7 @@ export const Hero = () => {
               />
 
               <div className="sm:ml-[144px] sm:mt-0 mt-[113px]">
-                {completion && (
+                {(completion || isLoading) && (
                   <div className="bg-[#ffc] p-4 rounded-md border border-black relative">
                     <div className="hidden sm:block">
                       <div className="absolute top-[10px] left-[-14px] border-[14px_14px_14px_0] border-solid border-[transparent_black_transparent]" />
@@ -233,10 +247,22 @@ export const Hero = () => {
                       <div className="absolute top-[-14px] left-[46px] border-[0_14px_14px_14px] border-solid border-[transparent_transparent_black]" />
                       <div className="absolute top-[-13px] left-[46px] border-[0_14px_14px_14px] border-solid border-[transparent_transparent_#ffc]" />
                     </div>
-                    <h1 className="text-lg font-medium mb-2">
-                      Your rehab plan
-                    </h1>
-                    <Markdown content={completion} />
+                    {completion && (
+                      <>
+                        <h1 className="text-lg font-medium mb-2">
+                          Your rehab plan
+                        </h1>
+                        <Markdown content={completion} />
+                      </>
+                    )}
+                    {isLoading && (
+                      <p className={cn("font-medium", completion && "mt-3")}>
+                        Computer is thinking
+                        <span className="inline-block w-[3ch]">
+                          {thinkingDots}
+                        </span>
+                      </p>
+                    )}
                   </div>
                 )}
               </div>
